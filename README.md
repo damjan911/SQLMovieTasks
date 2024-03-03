@@ -244,13 +244,13 @@
 
 
 
-   SELECT d.dir_fname, d.dir_lname, m.mov_title, a.act_fname, a.act_lname, mc.role
-   FROM movie m
-   INNER JOIN movie_direction md ON md.mov_id = m.mov_id
-   INNER JOIN movie_cast mc ON mc.mov_id = m.mov_id
-   INNER JOIN director d ON d.dir_id = md.dir_id
-   INNER JOIN actor a ON a.act_id = mc.act_id
-   WHERE a.act_fname = 'Claire' AND a.act_lname = 'Danes'
+    SELECT d.dir_fname, d.dir_lname, m.mov_title, a.act_fname, a.act_lname, mc.role
+    FROM movie m
+    INNER JOIN movie_direction md ON md.mov_id = m.mov_id
+    INNER JOIN movie_cast mc ON mc.mov_id = m.mov_id
+    INNER JOIN director d ON d.dir_id = md.dir_id
+    INNER JOIN actor a ON a.act_id = mc.act_id
+    WHERE a.act_fname = 'Claire' AND a.act_lname = 'Danes'
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
