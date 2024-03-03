@@ -459,7 +459,7 @@
        SELECT r.mov_id
        FROM rating r
        WHERE r.rev_stars > 3
-   ) ORDER BY m.mov_year ASC
+    ) ORDER BY m.mov_year ASC
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
