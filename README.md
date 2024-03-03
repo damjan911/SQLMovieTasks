@@ -259,13 +259,13 @@
  Task 18. From the following table, write a SQL query to find for actors whose films have been directed by them. Return actor first name, last name, movie title and role.
 
 
-   SELECT a.act_fname, a.act_lname, m.mov_title, mc.role
-   FROM actor a
-   INNER JOIN movie_cast mc ON mc.act_id = a.act_id
-   INNER JOIN movie m ON m.mov_id = mc.mov_id
-   INNER JOIN movie_direction md ON md.mov_id = m.mov_id
-   INNER JOIN director d on d.dir_id = md.dir_id
-   WHERE a.act_fname = d.dir_fname AND a.act_lname = d.dir_lname
+    SELECT a.act_fname, a.act_lname, m.mov_title, mc.role
+    FROM actor a
+    INNER JOIN movie_cast mc ON mc.act_id = a.act_id
+    INNER JOIN movie m ON m.mov_id = mc.mov_id
+    INNER JOIN movie_direction md ON md.mov_id = m.mov_id
+    INNER JOIN director d on d.dir_id = md.dir_id
+    WHERE a.act_fname = d.dir_fname AND a.act_lname = d.dir_lname
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -274,11 +274,11 @@
  Task 19. From the following tables, write a SQL query to find the cast list of the movie ‘Chinatown’. Return first name, last name.
 
 
-   SELECT a.act_fname AS "Actor FirstName", a.act_lname AS "Actor LastName"
-   FROM movie m
-   JOIN movie_cast mc ON mc.mov_id = m.mov_id
-   JOIN actor a ON a.act_id = mc.act_id
-   WHERE m.mov_title = 'Chinatown'
+    SELECT a.act_fname AS "Actor FirstName", a.act_lname AS "Actor LastName"
+    FROM movie m
+    JOIN movie_cast mc ON mc.mov_id = m.mov_id
+    JOIN actor a ON a.act_id = mc.act_id
+    WHERE m.mov_title = 'Chinatown'
 
 
 
@@ -333,13 +333,13 @@
 
 
 
-  SELECT m.mov_year, COUNT(g.gen_title), AVG(r.rev_stars)
-  FROM movie m
-  INNER JOIN movie_genres mg ON mg.mov_id = m.mov_id
-  INNER JOIN genres g ON g.gen_id = mg.gen_id
-  INNER JOIN rating r ON r.mov_id = m.mov_id
-  WHERE g.gen_title = 'Mystery'
-  GROUP BY m.mov_year, g.gen_title
+    SELECT m.mov_year, COUNT(g.gen_title), AVG(r.rev_stars)
+    FROM movie m
+    INNER JOIN movie_genres mg ON mg.mov_id = m.mov_id
+    INNER JOIN genres g ON g.gen_id = mg.gen_id
+    INNER JOIN rating r ON r.mov_id = m.mov_id
+    WHERE g.gen_title = 'Mystery'
+    GROUP BY m.mov_year, g.gen_title
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -402,13 +402,13 @@
  Task 3. From the following table, write a SQL query to find those movies that have been released in countries other than the United Kingdom. Return movie title, movie year, movie time, and date of release, releasing country.
 
 
-   SELECT m.mov_title, m.mov_year, m.mov_time, m.mov_dt_rel, m.mov_rel_country
-   FROM movie m
-   JOIN (
+    SELECT m.mov_title, m.mov_year, m.mov_time, m.mov_dt_rel, m.mov_rel_country
+    FROM movie m
+    JOIN (
         SELECT mov_id
         FROM movie
         WHERE mov_rel_country != 'UK'
-   ) AS filteredMovies ON m.mov_id = filteredMovies.mov_id
+    ) AS filteredMovies ON m.mov_id = filteredMovies.mov_id
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -417,15 +417,15 @@
  Task 4. From the following tables, write a SQL query to find for movies whose reviewer is unknown. Return movie title, year, release date, director first name, last name, actor first name, last name.
 
 
-   SELECT m.mov_title, m.mov_year, m.mov_dt_rel, d.dir_fname, d.dir_lname, a.act_fname, a.act_lname
-   FROM movie m
-   INNER JOIN movie_direction md ON md.mov_id = m.mov_id
-   INNER JOIN director d ON d.dir_id = md.dir_id
-   INNER JOIN rating r ON r.mov_id = m.mov_id
-   INNER JOIN reviewer re ON re.rev_id = r.rev_id
-   INNER JOIN movie_cast mc ON mc.mov_id = m.mov_id
-   INNER JOIN actor a ON a.act_id = mc.act_id
-   WHERE re.rev_name IS NULL
+    SELECT m.mov_title, m.mov_year, m.mov_dt_rel, d.dir_fname, d.dir_lname, a.act_fname, a.act_lname
+    FROM movie m
+    INNER JOIN movie_direction md ON md.mov_id = m.mov_id
+    INNER JOIN director d ON d.dir_id = md.dir_id
+    INNER JOIN rating r ON r.mov_id = m.mov_id
+    INNER JOIN reviewer re ON re.rev_id = r.rev_id
+    INNER JOIN movie_cast mc ON mc.mov_id = m.mov_id
+    INNER JOIN actor a ON a.act_id = mc.act_id
+    WHERE re.rev_name IS NULL
 
 
 
@@ -469,13 +469,13 @@
  Task 7. From the following table, write a SQL query to search for movies that do not have any ratings. Return movie title.
 
 
-  SELECT DISTINCT m.mov_title
-  FROM movie m
-  WHERE NOT EXISTS (
-    SELECT 1
-    FROM rating r
-    WHERE r.mov_id = m.mov_id
-  );
+    SELECT DISTINCT m.mov_title
+    FROM movie m
+    WHERE NOT EXISTS (
+      SELECT 1
+      FROM rating r
+      WHERE r.mov_id = m.mov_id
+    );
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -484,14 +484,14 @@
  Task 8. From the following table, write a SQL query to find those reviewers who have not given a rating to certain films. Return reviewer name.
 
 
-   SELECT re.rev_name
-   FROM reviewer re
-   INNER JOIN rating r ON r.rev_id = re.rev_id 
-   WHERE re.rev_id IN (
+    SELECT re.rev_name
+    FROM reviewer re
+    INNER JOIN rating r ON r.rev_id = re.rev_id 
+    WHERE re.rev_id IN (
       SELECT ra.rev_id
       FROM rating ra
       WHERE ra.rev_stars IS NULL
-   )
+    )
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -514,11 +514,11 @@
 
 
 
-   SELECT rev_name, mov_title 
-   FROM reviewer, movie, rating, rating r2
-   WHERE rating.mov_id = movie.mov_id 
+    SELECT rev_name, mov_title 
+    FROM reviewer, movie, rating, rating r2
+    WHERE rating.mov_id = movie.mov_id 
      AND reviewer.rev_id = rating.rev_ID 
      AND rating.rev_id = r2.rev_id 
-   GROUP BY rev_name, mov_title 
-   HAVING count(*) > 1;
+    GROUP BY rev_name, mov_title 
+    HAVING count(*) > 1;
 
